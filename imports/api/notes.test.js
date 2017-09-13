@@ -14,9 +14,18 @@ if (Meteor.isServer) {
             userId: 'testUserId1'
         };
 
+        const note2 = {
+            _id: 'testNoteId2',
+            title: 'title 2',
+            body: 'body 2',
+            updateAt: 0,
+            userId: 'testUserId2'
+        };
+
         beforeEach(function () {
             Notes.remove({});
             Notes.insert(note1);
+            Notes.insert(note2);
         });
 
         describe('insert', function () {
@@ -69,10 +78,8 @@ if (Meteor.isServer) {
                 );
 
                 const note = Notes.findOne(note1._id);
-                console.log(note);
 
                 expect(note.updatedAt).toBeGreaterThan(0);
-
                 expect(note).toInclude({
                     title,
                     body: note1.body
@@ -111,8 +118,6 @@ if (Meteor.isServer) {
                 );
 
                 const note = Notes.findOne(note1._id);
-                console.log(note);
-
                 expect(note).toInclude(note1);
             });
 
@@ -131,5 +136,24 @@ if (Meteor.isServer) {
             });
         });
 
+        describe('publication', function () {
+
+            it('should retirn users notes', function () {
+
+                const res = Meteor.server.publish_handlers.notes.apply({ userId: note1.userId });
+                const notes = res.fetch();
+
+                expect(notes.length).toBe(1);
+                expect(notes[0]).toEqual(note1);
+            });
+
+            it('no notes for wrong user id', function () {
+
+                const res = Meteor.server.publish_handlers.notes.apply({ userId: 'some id' });
+                const notes = res.fetch();
+
+                expect(notes.length).toBe(0);
+            })
+        });
     });
 }
