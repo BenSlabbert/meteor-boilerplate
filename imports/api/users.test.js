@@ -1,30 +1,67 @@
 import expect from 'expect';
+import { Meteor } from 'meteor/meteor';
 
-const add = (a, b) => {
+import { validateNewUser } from './users';
 
-    if (typeof b !== 'number')
-        return a + a;
+if (Meteor.isServer) {
+    describe('users', function () {
+        it('valid email', function () {
 
-    return a + b;
-};
+            const testUser = {
+                emails: [
+                    {
+                        address: 'ben@test.com'
+                    }
+                ]
+            }
 
-const square = (a) => a * a;
+            const res = validateNewUser(testUser);
 
-describe('add', function () {
-    it('should add two numbers', function () {
-        const res = add(1, 2);
-        expect(res).toBe(3);
+            expect(res).toBe(true);
+        });
+
+        it('invalid email', function () {
+
+            const testUser = {
+                emails: [
+                    {
+                        address: 'bentest.com'
+                    }
+                ]
+            }
+
+            expect(() => {
+                validateNewUser(testUser);
+            }).toThrow();
+        });
     });
+}
 
-    it('should double', function () {
-        const res = add(2);
-        expect(res).toBe(4);
-    });
-});
+// const add = (a, b) => {
 
-describe('square', function () {
-    it('should square', function () {
-        const res = square(3);
-        expect(res).toBe(9);
-    });
-});
+//     if (typeof b !== 'number')
+//         return a + a;
+
+//     return a + b;
+// };
+
+// const square = (a) => a * a;
+
+// describe('add', function () {
+//     it('should add two numbers', function () {
+//         const res = add(1, 2);
+//         expect(res).toBe(3);
+//     });
+
+//     it('should double', function () {
+//         const res = add(2);
+//         expect(res).toBe(4);
+//     });
+// });
+
+// describe('square', function () {
+//     it('should square', function () {
+//         const res = square(3);
+//         expect(res).toBe(9);
+//     });
+// });
