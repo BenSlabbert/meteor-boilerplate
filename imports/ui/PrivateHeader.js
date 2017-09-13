@@ -8,7 +8,7 @@ const PrivateHeader = (props) => {
             <div className="header__content">
                 <h1 className="header__title">{props.title}</h1>
                 <button className="button button--link-text" onClick={() => {
-                    Accounts.logout()
+                    props.handleLogout()
                 }}>Logout</button>
             </div>
         </div>
@@ -16,7 +16,8 @@ const PrivateHeader = (props) => {
 };
 
 PrivateHeader.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    handleLogout: PropTypes.func.isRequired
 }
 
 export default PrivateHeader;
