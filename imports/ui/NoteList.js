@@ -19,7 +19,7 @@ export const NoteList = (props) => {
 
 NoteList.PropTypes = {
     notes: PropTypes.array.isRequired
-}
+};
 
 export default createContainer(() => {
     Meteor.subscribe('notes');
