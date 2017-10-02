@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import {Link} from 'react-router';
+import {Meteor} from 'meteor/meteor';
+import {createContainer} from 'meteor/react-meteor-data';
 
 export class Login extends React.Component {
 
@@ -20,11 +20,11 @@ export class Login extends React.Component {
         let password = this.refs.password.value.trim();
 
         // from container
-        this.props.loginWithPassword({ email }, password, (err) => {
+        this.props.loginWithPassword({email}, password, (err) => {
             if (err) {
-                this.setState({ error: 'Unable to log in. Check email and password.' });
+                this.setState({error: 'Unable to log in. Check email and password.'});
             } else {
-                this.setState({ error: '' });
+                this.setState({error: ''});
             }
         });
 
@@ -39,8 +39,8 @@ export class Login extends React.Component {
                     {this.state.error ? <p>{this.state.error}</p> : undefined}
 
                     <form onSubmit={this.onSubmit.bind(this)} noValidate className="boxed-view__form">
-                        <input type="email" ref="email" name="email" placeholder="Email" />
-                        <input type="password" ref="password" name="password" placeholder="Password" />
+                        <input type="email" ref="email" name="email" placeholder="Email"/>
+                        <input type="password" ref="password" name="password" placeholder="Password"/>
                         <button className="button">Login</button>
                     </form>
 

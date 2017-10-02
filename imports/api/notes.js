@@ -1,5 +1,5 @@
-import { Mongo } from 'meteor/mongo';
-import { Meteor } from 'meteor/meteor';
+import {Mongo} from 'meteor/mongo';
+import {Meteor} from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import moment from 'moment';
 
@@ -7,7 +7,7 @@ export const Notes = new Mongo.Collection('notes');
 
 if (Meteor.isServer) {
     Meteor.publish('notes', function () {
-        return Notes.find({ userId: this.userId });
+        return Notes.find({userId: this.userId});
     });
 }
 
@@ -21,7 +21,7 @@ Meteor.methods({
             title: '',
             body: '',
             userId: this.userId,
-            updatedAt: moment(0).valueOf()
+            updatedAt: moment().valueOf()
         })
     },
     'notes.remove'(_id) {
@@ -34,9 +34,9 @@ Meteor.methods({
                 type: String,
                 min: 1
             }
-        }).validate({ _id });
+        }).validate({_id});
 
-        Notes.remove({ _id, userId: this.userId });
+        Notes.remove({_id, userId: this.userId});
     },
     'notes.update'(_id, updates) {
         if (!this.userId) {
@@ -67,10 +67,10 @@ Meteor.methods({
             _id,
             userId: this.userId
         }, {
-                $set: {
-                    updatedAt: moment().valueOf(),
-                    ...updates
-                }
-            });
+            $set: {
+                updatedAt: moment().valueOf(),
+                ...updates
+            }
+        });
     }
 });
