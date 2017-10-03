@@ -27,7 +27,7 @@ if (Meteor.isClient) {
             const wrapper = mount(<NoteListItem note={{upadtedAt: updatedAt}}/>)
 
             expect(wrapper.find('h5').text()).toBe('Untitled Note');
-            expect(wrapper.find('p').text().trim()).toBe('02/10/17');
+            expect(wrapper.find('p').text().trim()).toBe('03/10/17');
         });
 
     })
