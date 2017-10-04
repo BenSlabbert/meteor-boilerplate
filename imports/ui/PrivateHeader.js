@@ -19,7 +19,7 @@ export const PrivateHeader = (props) => {
 PrivateHeader.propTypes = {
     title: PropTypes.string.isRequired,
     handleLogout: PropTypes.func.isRequired
-}
+};
 
 // anything returnd from this function is a prop
 // to the presentational component above
